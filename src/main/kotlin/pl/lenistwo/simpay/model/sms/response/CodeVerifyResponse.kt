@@ -1,4 +1,4 @@
-package pl.lenistwo.simpay.model.sms.response
+package model.sms.response
 
 data class CodeVerifyResponse(val status: String, val test: Int,
                               val from: Int, val number: Int,

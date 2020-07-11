@@ -1,4 +1,4 @@
-package pl.lenistwo.simpay.model.sms.request
+package model.sms
 
 class IPResponse {
 }

@@ -5,15 +5,22 @@ plugins {
 group 'pl.lenistwo'
 version '1.0-SNAPSHOT'
 
+kotlin {
+    sourceSets {
+        main.kotlin.srcDirs += "src/main/kotlin/pl/lenistwo/simpay"
+    }
+}
+
 repositories {
     mavenCentral()
 }
 
+
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     compile group: 'com.google.code.gson', name: 'gson', version: '2.8.6'
+    compile group: 'com.google.guava', name: 'guava', version: '29.0-jre'
     compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.7.2'
-    compile group: 'com.google.guava', name: 'guava', version: '23.0'
 }
 
 compileKotlin {

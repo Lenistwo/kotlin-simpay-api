@@ -1,6 +1,6 @@
-package pl.lenistwo.simpay.model.db.request
+package model.db.request
 
-import pl.lenistwo.simpay.model.Operator
+import model.Operator
 
 data class DbGenerateRequest(val serviceId: String, val control: String,
                              val complete: String, val failure: String,

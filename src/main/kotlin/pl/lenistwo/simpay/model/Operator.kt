@@ -1,4 +1,4 @@
-package pl.lenistwo.simpay.model
+package model
 
 enum class Operator(val value: Int) {
     ORANGE(1),

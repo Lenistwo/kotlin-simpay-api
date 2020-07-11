@@ -1,4 +1,4 @@
-package pl.lenistwo.simpay.model.db
+package model.db
 
 data class DbTransaction(val id: Int, val valuenet: Double,
                          val valuenet_gross: Double, val valuenet_partner: Double,
