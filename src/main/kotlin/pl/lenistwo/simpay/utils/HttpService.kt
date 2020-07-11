@@ -2,19 +2,41 @@ package utils
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import exception.ApiException
 import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody
 
 private const val GET_IP_URL = "https://simpay.pl/api/get_ip"
+private const val CONTENT_TYPE_VALUE = "application/json"
 private const val HTTP_OK_CODE = 200
 
-class HttpService {
-    private fun okHttp(): OkHttpClient {
-        return OkHttpClient()
-    }
+private fun okHttp(): OkHttpClient {
+    return OkHttpClient()
+}
 
-    private fun gson(): Gson {
-        return GsonBuilder().setPrettyPrinting().create()
-    }
+private fun gson(): Gson {
+    return GsonBuilder().setPrettyPrinting().create()
+}
 
+fun sendPost(url: String, body: RequestBody): String {
+    val builder = Request.Builder()
+    val post = builder.url(url).post(body).build()
 
+    val response = okHttp().newCall(post).execute()
+    if (response.code != HTTP_OK_CODE)
+        throw ApiException(response.message)
+
+    return response.body!!.string().also { response.close() }
+}
+
+fun sendGet(url: String): String {
+    val builder = Request.Builder()
+    val post = builder.url(url).get().build()
+
+    val response = okHttp().newCall(post).execute()
+    if (response.code != HTTP_OK_CODE)
+        throw ApiException(response.message)
+
+    return response.body!!.string().also { response.close() }
 }
