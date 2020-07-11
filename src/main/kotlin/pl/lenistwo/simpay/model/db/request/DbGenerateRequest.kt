@@ -1,6 +1,6 @@
 package model.db.request
 
-import model.Operator
+import model.generic.Operator
 
 data class DbGenerateRequest(val serviceId: String, val control: String,
                              val complete: String, val failure: String,

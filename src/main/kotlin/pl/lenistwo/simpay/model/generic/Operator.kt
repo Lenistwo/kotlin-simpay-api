@@ -1,4 +1,4 @@
-package model
+package model.generic
 
 enum class Operator(val value: Int) {
     ORANGE(1),
