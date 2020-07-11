@@ -7,7 +7,7 @@ version '1.0-SNAPSHOT'
 
 kotlin {
     sourceSets {
-        main.kotlin.srcDirs += "src/main/kotlin/pl/lenistwo/simpay"
+        main.kotlin.srcDirs += "src/main/kotlin/pl/simpay/api"
     }
 }
 
