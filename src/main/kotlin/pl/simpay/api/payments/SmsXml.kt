@@ -1,12 +1,9 @@
 package payments
 
-import model.generic.ApiResponse
 import model.generic.IPResponse
 import utils.normalizeToNFKD
 import utils.sendGet
-import utils.sendPost
 import utils.toSha256
-import java.lang.StringBuilder
 import kotlin.random.Random
 
 private const val GET_IP_URL = "https://simpay.pl/api/get_ip"
