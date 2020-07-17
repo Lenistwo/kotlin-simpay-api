@@ -22,7 +22,7 @@ private fun gson(): Gson {
     return GsonBuilder().setPrettyPrinting().create()
 }
 
-fun sendPost(url: String, body: RequestBody): String {
+internal fun sendPost(url: String, body: RequestBody): String {
     val builder = Request.Builder()
     val post = builder.url(url).post(body).build()
 
@@ -33,7 +33,7 @@ fun sendPost(url: String, body: RequestBody): String {
     return response.body!!.string().also { response.close() }
 }
 
-fun <T> sendPost(url: String, request: Any): T {
+internal fun <T> sendPost(url: String, request: Any): T {
     return gson().fromJson(
         sendPost(
             url,
@@ -42,7 +42,7 @@ fun <T> sendPost(url: String, request: Any): T {
     )
 }
 
-fun sendGet(url: String): String {
+internal fun sendGet(url: String): String {
     val builder = Request.Builder()
     val post = builder.url(url).get().build()
 
@@ -51,4 +51,8 @@ fun sendGet(url: String): String {
         throw ApiException(response.message)
 
     return response.body!!.string().also { response.close() }
+}
+
+internal fun <T> sendGet(url: String, request: Any): T {
+    return gson().fromJson(sendGet(url), request.javaClass.genericSuperclass)
 }

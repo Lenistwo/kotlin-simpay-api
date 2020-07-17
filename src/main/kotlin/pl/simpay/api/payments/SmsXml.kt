@@ -1,6 +1,13 @@
 package payments
 
+import model.generic.ApiResponse
+import model.generic.IPResponse
+import utils.normalizeToNFKD
+import utils.sendGet
+import utils.sendPost
 import utils.toSha256
+import java.lang.StringBuilder
+import kotlin.random.Random
 
 private const val GET_IP_URL = "https://simpay.pl/api/get_ip"
 private const val CHARSET = "ABCDEFGHIJKLMNPQRSTUVWXYZ123456789"
@@ -10,6 +17,7 @@ private const val SMS_FROM = "sms_from"
 private const val SMS_TEXT = "sms_text"
 private const val SEND_NUMBER = "send_number"
 private const val SEND_TIME = "send_time"
+private const val ZERO = 0
 
 class SmsXml(val apiKey: String) {
     private var codes: MutableMap<String, Double> = mutableMapOf()
@@ -35,6 +43,7 @@ class SmsXml(val apiKey: String) {
         codes["92555"] = 12.5
     }
 
+    // https://docs.simpay.pl/#odbieranie-informacji-o-sms
     fun checkParameters(map: Map<String, Any>): Boolean {
         map.forEach {
             if (map.containsKey(it.key)) {
@@ -43,6 +52,33 @@ class SmsXml(val apiKey: String) {
         }
 
         return map[SIGN] == sign(map)
+    }
+
+    // https://docs.simpay.pl/#odbieranie-informacji-o-sms
+    fun generateCode(): String {
+        var length = 6;
+
+        val builder = StringBuilder()
+
+        for (i in ZERO..length) {
+            builder.append(CHARSET[Random.nextInt(ZERO, CHARSET.length)])
+        }
+        return builder.toString()
+    }
+
+    // https://docs.simpay.pl/#odbieranie-informacji-o-sms
+    fun getSmsValue(number: String): Double? {
+        return codes[number]
+    }
+
+    // https://docs.simpay.pl/#odbieranie-informacji-o-sms
+    fun generateXml(text: String): String {
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?><sms-response>${text.normalizeToNFKD()}<sms-text></sms-text></sms-response>";
+    }
+
+    fun getServersIp(ip: String): Boolean {
+        val ipResponse = sendGet<IPResponse>(GET_IP_URL, IPResponse())
+        return ipResponse.ips.contains(ip)
     }
 
     private fun sign(map: Map<String, Any>): String {
