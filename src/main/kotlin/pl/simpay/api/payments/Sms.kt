@@ -14,11 +14,11 @@ class Sms {
 
     // https://docs.simpay.pl/#weryfikacja-kodu
     fun verifyCode(request: CodeVerifyRequest): ApiResponse<CodeVerifyResponse> {
-        return sendPost(VERIFY_CODE_URL, CodeVerifyResponse());
+        return sendPost(VERIFY_CODE_URL, request, ApiResponse<CodeVerifyResponse>());
     }
 
     // https://docs.simpay.pl/#pobieranie-listy-uslug
     fun getServiceList(request: ServiceListRequest): ApiResponse<ServicesResponse> {
-        return sendPost(SERVICE_LIST_URL, ServicesResponse())
+        return sendPost(SERVICE_LIST_URL, request, ApiResponse<ServicesResponse>())
     }
 }

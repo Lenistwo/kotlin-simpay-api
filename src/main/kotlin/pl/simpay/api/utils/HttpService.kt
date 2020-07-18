@@ -31,12 +31,12 @@ internal fun sendPost(url: String, body: RequestBody): String {
     return response.body!!.string().also { response.close() }
 }
 
-internal fun <T> sendPost(url: String, request: Any): T {
+internal fun <T> sendPost(url: String, request: Any, response: Any): T {
     return gson().fromJson(
         sendPost(
             url,
             gson().toJson(request).toRequestBody(CONTENT_TYPE_VALUE.toMediaTypeOrNull())
-        ), request.javaClass.genericSuperclass
+        ), response.javaClass.genericSuperclass
     )
 }
 
@@ -51,6 +51,6 @@ internal fun sendGet(url: String): String {
     return response.body!!.string().also { response.close() }
 }
 
-internal fun <T> sendGet(url: String, request: Any): T {
-    return gson().fromJson(sendGet(url), request.javaClass.genericSuperclass)
+internal fun <T> sendGet(url: String, result: Any): T {
+    return gson().fromJson(sendGet(url), result.javaClass.genericSuperclass)
 }

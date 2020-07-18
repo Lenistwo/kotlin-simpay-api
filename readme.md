@@ -53,8 +53,7 @@ val ip: boolean = smsXml.getServersIp("ip") // Check if passed ip is valid ip of
 ## Direct Billing
 ### Generowanie transakcji
 ```kotlin
-val directBilling: DirectBilling =  DirectBilling()
-val directBilling: DirectBilling =  DirectBilling("apiKey", "secret", false, "1")
+val directBilling: DirectBilling =  DirectBilling("apiKey")
 
 val request: DbGenerateRequest =  DbGenerateRequest()
 val request: DbGenerateRequest = DbGenerateRequest("serviceId", "control", 
@@ -79,8 +78,7 @@ val dbGenerateResponse.status // Status received from api
 
 ### Pobieranie danych o transakcji
 ```kotlin
-val directBilling: DirectBilling  =  DirectBilling()
-val directBilling: DirectBilling  =  DirectBilling("apiKey", "secret", "serviceId")
+val directBilling: DirectBilling  =  DirectBilling("apiKey")
 
 val request: DbTransactionRequest =  DbTransactionRequest()
 val request.id = 1 // can be omitted  by passing value in constructor
@@ -94,7 +92,7 @@ val respond: DbTransaction = response.respond // can be omitted  by passing valu
 
 ### Pobieranie listy usług DCB
 ```kotlin
-val directBilling: DirectBilling  =  DirectBilling()
+val directBilling: DirectBilling  =  DirectBilling("apiKey")
 
 val request: DbServicesListRequest =  DbServicesListRequest()
 request.api = "key" // can be omitted  by passing value in constructor
@@ -107,7 +105,7 @@ val respond: DbTransaction = response.respond
 
 ### Pobieranie maksymalnych kwot transakcji
 ```kotlin
-val directBilling: DirectBilling =  DirectBilling()
+val directBilling: DirectBilling =  DirectBilling("apiKey")
 
 val request: DbTransactionLimitsRequest =  DbTransactionLimitsRequest()
 val request: DbTransactionLimitsRequest =  DbTransactionLimitsRequest("key", "secret", "serviceId")
@@ -121,7 +119,7 @@ val response: APIResponse<Array<DbTransactionLimit>> = directBilling.getTransact
 
 ### Pobieranie prowizji dla usługi
 ```kotlin
-val directBilling: DirectBilling = DirectBilling()
+val directBilling: DirectBilling = DirectBilling("apiKey")
 
 val request: DbServiceCommissionRequest =  DbServiceCommissionRequest()
 val request: DbServiceCommissionRequest =  DbServiceCommissionRequest("key", "secret", "serviceId")
@@ -136,14 +134,14 @@ val response: Array<DbCommission> = directBilling.getServiceCommission(request)
 
 ### Pobieranie adresów IP serwerów SimPay
 ```kotlin
-val directBilling: DirectBilling = DirectBilling()
+val directBilling: DirectBilling = DirectBilling("apiKey")
 
 val response: Array<String> = directBilling.getServersIp()
 ```
 
 ### Obliczanie podpisu sign
 ```kotlin
-val directBilling: DirectBilling = DirectBilling()
+val directBilling: DirectBilling = DirectBilling("apiKey")
 
 val sign: String = directBilling.sign(123, "status", "valuenet", "valuepartner", "control")
 ```

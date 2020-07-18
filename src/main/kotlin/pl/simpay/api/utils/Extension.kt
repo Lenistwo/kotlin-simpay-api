@@ -16,3 +16,13 @@ internal fun String.normalizeToNFKD(): String {
 internal fun Double.formatTwoDigitAfterComma(): String {
     return DecimalFormat("0.##").format(this)
 }
+
+internal fun Any.serialize(): HashMap<String, String> {
+    val map = HashMap<String, String>()
+    for (field in this.javaClass.fields) {
+        field.trySetAccessible()
+        val value = field.get(this) ?: continue
+        map[field.name] = value.toString()
+    }
+    return map
+}
