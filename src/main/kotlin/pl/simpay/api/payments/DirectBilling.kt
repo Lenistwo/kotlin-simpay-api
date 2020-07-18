@@ -26,7 +26,7 @@ class DirectBilling(val apiKey: String) {
     // https://docs.simpay.pl/#generowanie-transakcji
     fun generateTransaction(request: DbGenerateRequest): DbGenerateResponse {
         val builder = FormBody.Builder()
-        request.sign = (request.serviceId + "" + request.amount_required.toDouble().formatTwoDigitAfterComma().replace(COMMA, DOT) + request.control + apiKey).toSha256()
+        request.sign = (request.serviceId + request.amount_required.toDouble().formatTwoDigitAfterComma().replace(COMMA, DOT) + request.control + apiKey).toSha256()
         for (map in request.serialize()) {
             builder.add(map.key, map.value)
         }
