@@ -1,4 +1,6 @@
 package model.sms.request
 
-data class CodeVerifyRequest(val key: String, val secret: String,
-                             val service_id: String, val number: String, val code: String)
+data class CodeVerifyRequest(var key: String, var secret: String,
+                             var service_id: String, var number: String, var code: String){
+    constructor()
+}
