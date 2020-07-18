@@ -1,3 +1,5 @@
 package model.db.request
 
-data class DbTransactionLimitsRequest(val key: String, val secret: String, val service_id: String)
+data class DbTransactionLimitsRequest(var key: String, var secret: String, var service_id: String){
+    constructor()
+}

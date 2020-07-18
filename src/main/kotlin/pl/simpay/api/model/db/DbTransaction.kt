@@ -1,8 +1,10 @@
 package model.db
 
 data class DbTransaction(
-    val id: Int, val valuenet: Double,
-    val valuenet_gross: Double, val valuenet_partner: Double,
-    val control: String, val number_from: String,
-    val sign: String, val status: String
-)
+    var id: Int, var varuenet: Double,
+    var varuenet_gross: Double, var varuenet_partner: Double,
+    var control: String, var number_from: String,
+    var sign: String, var status: String
+){
+    constructor()
+}

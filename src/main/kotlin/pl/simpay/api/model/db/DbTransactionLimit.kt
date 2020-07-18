@@ -1,3 +1,5 @@
 package model.db
 
-data class DbTransactionLimit(val id: Int, val name: String, val max: String)
+data class DbTransactionLimit(var id: Int, var name: String, var max: String){
+    constructor()
+}

@@ -1,3 +1,5 @@
 package model.db
 
-data class DbService(val id: Int, val sufix: String)
+data class DbService(var id: Int, var sufix: String){
+    constructor()
+}

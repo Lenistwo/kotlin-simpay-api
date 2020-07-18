@@ -1,3 +1,5 @@
 package model.db.response
 
-data class DbGenerateResponse(val status: String, val link: String, val name: String, val message: String)
+data class DbGenerateResponse(var status: String, var link: String, var name: String, var message: String){
+    constructor()
+}

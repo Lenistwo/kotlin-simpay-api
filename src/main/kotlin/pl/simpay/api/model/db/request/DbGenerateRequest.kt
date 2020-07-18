@@ -3,9 +3,11 @@ package model.db.request
 import model.generic.Operator
 
 data class DbGenerateRequest(
-    val serviceId: String, val control: String,
-    val complete: String, val failure: String,
-    val amount: String, val amount_gross: String,
-    val amount_required: String, val provider: Operator,
-    val sign: String
-)
+    var serviceId: String, var control: String,
+    var complete: String, var failure: String,
+    var amount: String, var amount_gross: String,
+    var amount_required: String, var provider: Operator,
+    var sign: String
+) {
+    constructor()
+}
