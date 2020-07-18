@@ -42,8 +42,8 @@ class SmsXml(val apiKey: String) {
 
     // https://docs.simpay.pl/#odbieranie-informacji-o-sms
     fun checkParameters(map: Map<String, Any>): Boolean {
-        map.forEach {
-            if (map.containsKey(it.key)) {
+        params.forEach {
+            if (map.containsKey(it)) {
                 return false
             }
         }
