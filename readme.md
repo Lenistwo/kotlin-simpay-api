@@ -47,7 +47,7 @@ val smsXml: SmsXml = SmsXml("apikey")
 val code: String = smsXml.generateCode() // Generate code
 val number: Int = smsXml.getSmsValue("number") // retrieve information"s about sms
 val sms: String = smsXml.generateXml("sms") // Generate xml from sms message
-val ip: boolean = smsXml.getServersIp("ip") // Check if passed ip is valid ip of simpay servers
+val ip: Boolean = smsXml.getServersIp("ip") // Check if passed ip is valid ip of simpay servers
 ```
 
 ## Direct Billing
@@ -80,7 +80,7 @@ val dbGenerateResponse.status // Status received from api
 ```kotlin
 val directBilling: DirectBilling = irectBilling("apiKey")
 
-val request: DbTransactionRequest= DbTransactionRequest()
+val request: DbTransactionRequest = DbTransactionRequest()
 request.id = 1 // can be omitted  by passing value in constructor
 request.key = "key" // can be omitted  by passing value in constructor
 request.secret = "secret"  // can be omitted  by passing value in constructor
