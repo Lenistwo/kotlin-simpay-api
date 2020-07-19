@@ -59,7 +59,7 @@ class DirectBilling(val apiKey: String) {
     }
 
     // https://docs.simpay.pl/#odbieranie-transakcji
-    private fun sign(id: Int, status: String, valuenet: String, valuepartner: String, control: String): String {
+    fun sign(id: Int, status: String, valuenet: String, valuepartner: String, control: String): String {
         return (id.toString() + status + valuenet + valuepartner + control + apiKey).toSha256()
     }
 }

@@ -81,9 +81,9 @@ val dbGenerateResponse.status // Status received from api
 val directBilling: DirectBilling  =  DirectBilling("apiKey")
 
 val request: DbTransactionRequest =  DbTransactionRequest()
-val request.id = 1 // can be omitted  by passing value in constructor
-val request.key = "key" // can be omitted  by passing value in constructor
-val request.secret = "secret"  // can be omitted  by passing value in constructor
+request.id = 1 // can be omitted  by passing value in constructor
+request.key = "key" // can be omitted  by passing value in constructor
+request.secret = "secret"  // can be omitted  by passing value in constructor
 
 val response: APIResponse<DbTransaction>  = directBilling.getTransaction(request)
 val error: Array<String> = response.error // List of errors, if request was successful list will be empty
