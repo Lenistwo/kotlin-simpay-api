@@ -27,8 +27,8 @@ val value: Int = codeVerifyResponse.value // Code Value
 ```kotlin
 val sms: Sms =  Sms()
 
-val request: ServiceListRequest =  ServiceListRequest()
-val request: ServiceListRequest =  ServiceListRequest("key", "secret")
+val request: ServiceListRequest = ServiceListRequest()
+val request: ServiceListRequest = ServiceListRequest("key", "secret")
 
 request.key = "key" // can be omitted  by passing value in constructor
 request.secret = "secret" // ca
@@ -42,7 +42,7 @@ val services: Array<Service> = serviceList.services // List of services
 
 ## SMS XML
 ```kotlin
-val smsXml: SmsXml =  SmsXml("apikey")
+val smsXml: SmsXml = SmsXml("apikey")
 
 val code: String = smsXml.generateCode() // Generate code
 val number: Int = smsXml.getSmsValue("number") // retrieve information"s about sms
@@ -53,9 +53,9 @@ val ip: boolean = smsXml.getServersIp("ip") // Check if passed ip is valid ip of
 ## Direct Billing
 ### Generowanie transakcji
 ```kotlin
-val directBilling: DirectBilling =  DirectBilling("apiKey")
+val directBilling: DirectBilling = DirectBilling("apiKey")
 
-val request: DbGenerateRequest =  DbGenerateRequest()
+val request: DbGenerateRequest = DbGenerateRequest()
 val request: DbGenerateRequest = DbGenerateRequest("serviceId", "control", 
                                                    "complete", "failure", 
                                                    "amount", "amount_gross", 
@@ -78,23 +78,23 @@ val dbGenerateResponse.status // Status received from api
 
 ### Pobieranie danych o transakcji
 ```kotlin
-val directBilling: DirectBilling  =  DirectBilling("apiKey")
+val directBilling: DirectBilling = irectBilling("apiKey")
 
-val request: DbTransactionRequest =  DbTransactionRequest()
+val request: DbTransactionRequest= DbTransactionRequest()
 request.id = 1 // can be omitted  by passing value in constructor
 request.key = "key" // can be omitted  by passing value in constructor
 request.secret = "secret"  // can be omitted  by passing value in constructor
 
-val response: APIResponse<DbTransaction>  = directBilling.getTransaction(request)
+val response: APIResponse<DbTransaction> = directBilling.getTransaction(request)
 val error: Array<String> = response.error // List of errors, if request was successful list will be empty
 val respond: DbTransaction = response.respond // can be omitted  by passing value in constructor
 ```
 
 ### Pobieranie listy usług DCB
 ```kotlin
-val directBilling: DirectBilling  =  DirectBilling("apiKey")
+val directBilling: DirectBilling = DirectBilling("apiKey")
 
-val request: DbServicesListRequest =  DbServicesListRequest()
+val request: DbServicesListRequest = DbServicesListRequest()
 request.api = "key" // can be omitted  by passing value in constructor
 request.secret = "secret"  // can be omitted  by passing value in constructor
 
@@ -105,10 +105,10 @@ val respond: DbTransaction = response.respond
 
 ### Pobieranie maksymalnych kwot transakcji
 ```kotlin
-val directBilling: DirectBilling =  DirectBilling("apiKey")
+val directBilling: DirectBilling = DirectBilling("apiKey")
 
-val request: DbTransactionLimitsRequest =  DbTransactionLimitsRequest()
-val request: DbTransactionLimitsRequest =  DbTransactionLimitsRequest("key", "secret", "serviceId")
+val request: DbTransactionLimitsRequest = DbTransactionLimitsRequest()
+val request: DbTransactionLimitsRequest = DbTransactionLimitsRequest("key", "secret", "serviceId")
 
 request.service_id = "1" // can be omitted  by passing value in constructor
 request.api = "key" // can be omitted  by passing value in constructor
@@ -121,8 +121,8 @@ val response: APIResponse<Array<DbTransactionLimit>> = directBilling.getTransact
 ```kotlin
 val directBilling: DirectBilling = DirectBilling("apiKey")
 
-val request: DbServiceCommissionRequest =  DbServiceCommissionRequest()
-val request: DbServiceCommissionRequest =  DbServiceCommissionRequest("key", "secret", "serviceId")
+val request: DbServiceCommissionRequest = DbServiceCommissionRequest()
+val request: DbServiceCommissionRequest = DbServiceCommissionRequest("key", "secret", "serviceId")
 
 
 request.service_id = "1" // can be omitted  by passing value in constructor
