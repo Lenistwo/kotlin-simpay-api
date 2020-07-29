@@ -3,11 +3,20 @@ package utils
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import exception.ApiException
+import model.db.request.DbGenerateRequest
+import model.db.request.DbServicesListRequest
+import model.db.request.DbTransactionRequest
+import model.generic.ApiResponse
+import model.generic.Operator
+import model.sms.request.CodeVerifyRequest
+import model.sms.request.ServiceListRequest
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import payments.DirectBilling
+import payments.Sms
 
 private const val CONTENT_TYPE_VALUE = "application/json"
 private const val HTTP_OK_CODE = 200
@@ -31,12 +40,12 @@ internal fun sendPost(url: String, body: RequestBody): String {
     return response.body!!.string().also { response.close() }
 }
 
-internal fun <T> sendPost(url: String, request: Any, response: Any): T {
+internal inline fun <REQ, reified RES> sendPost(url: String, request: REQ, response: RES): RES {
     return gson().fromJson(
         sendPost(
             url,
             gson().toJson(request).toRequestBody(CONTENT_TYPE_VALUE.toMediaTypeOrNull())
-        ), response.javaClass.genericSuperclass
+        ), RES::class.java
     )
 }
 

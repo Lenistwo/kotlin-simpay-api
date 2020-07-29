@@ -1,5 +1,4 @@
 package model.db.request
 
-data class DbServicesListRequest(var key: String, var secret: String){
-    constructor()
+data class DbServicesListRequest(var key: String="", var secret: String=""){
 }

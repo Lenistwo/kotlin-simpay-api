@@ -1,8 +1,7 @@
 package model.generic
 
-data class ApiResponse<T>(var respond: T, var error: Array<ApiError>) {
+data class ApiResponse<T>(var respond: T? = null, var error: Array<ApiError> = emptyArray()) {
 
-    constructor()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

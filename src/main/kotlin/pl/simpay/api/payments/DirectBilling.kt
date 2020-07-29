@@ -24,38 +24,40 @@ private const val DOT = "."
 class DirectBilling(val apiKey: String) {
 
     // https://docs.simpay.pl/#generowanie-transakcji
-    fun generateTransaction(request: DbGenerateRequest): DbGenerateResponse {
+    fun generateTransaction(request: DbGenerateRequest): ApiResponse<DbGenerateResponse> {
         val builder = FormBody.Builder()
-        request.sign = (request.serviceId + request.amount_required.toDouble().formatTwoDigitAfterComma().replace(COMMA, DOT) + request.control + apiKey).toSha256()
+        request.sign =
+                (request.serviceId + request.amount.toDouble().formatTwoDigitAfterComma().replace(COMMA,
+                                                                                                  DOT) + request.control + apiKey).toSha256()
         for (map in request.serialize()) {
             builder.add(map.key, map.value)
         }
-        return sendPost(API_URL, builder.build(), DbGenerateResponse())
+        return sendPost(API_URL, builder.build(), ApiResponse())
     }
 
     // https://docs.simpay.pl/#pobieranie-danych-o-transakcji
     fun getTransaction(request: DbTransactionRequest): ApiResponse<DbTransaction> {
-        return sendPost(TRANSACTION_STATUS_URL, ParametrizedRequest(request), ApiResponse<DbTransaction>())
+        return sendPost(TRANSACTION_STATUS_URL, ParametrizedRequest(request), ApiResponse())
     }
 
     fun getServices(request: DbServicesListRequest): ApiResponse<DbServicesListRequest> {
-        return sendPost(SERVICES_LIST_URL, request, ApiResponse<DbServicesListRequest>())
+        return sendPost(SERVICES_LIST_URL, request, ApiResponse())
     }
 
     // https://docs.simpay.pl/#pobieranie-maksymalnych-kwot-transakcji
     fun getTransactionLimits(request: DbTransactionLimitsRequest): ApiResponse<List<DbTransactionLimit>> {
-        return sendPost(TRANSACTION_LIMITS_URL, request, ApiResponse<List<DbTransactionLimit>>())
+        return sendPost(TRANSACTION_LIMITS_URL, request, ApiResponse())
     }
 
     // https://docs.simpay.pl/#lista-ip-serwerow-simpay
     fun getServersIp(): List<String> {
         val response: ApiResponse<IPResponse> = sendGet(GET_IP_URL, ApiResponse<IPResponse>())
-        return response.respond.ips;
+        return response.respond!!.ips;
     }
 
     // https://docs.simpay.pl/#pobieranie-prowizji-dla-uslugi
     fun getServiceCommission(request: DbServiceCommissionRequest): ApiResponse<List<DbCommission>> {
-        return sendPost(SERVICE_COMMISSION_URL, ParametrizedRequest(request), ApiResponse<List<DbCommission>>())
+        return sendPost(SERVICE_COMMISSION_URL, ParametrizedRequest(request), ApiResponse())
     }
 
     // https://docs.simpay.pl/#odbieranie-transakcji
