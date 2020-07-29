@@ -20,7 +20,7 @@ internal fun Double.formatTwoDigitAfterComma(): String {
 internal fun Any.serialize(): HashMap<String, String> {
     val map = HashMap<String, String>()
     for (field in this.javaClass.fields) {
-        field.trySetAccessible()
+        field.isAccessible = true
         val value = field.get(this) ?: continue
         map[field.name] = value.toString()
     }
