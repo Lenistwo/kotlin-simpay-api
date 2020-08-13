@@ -121,5 +121,5 @@ val response: List<String> = directBilling.getServersIp()
 ```kotlin
 val directBilling: DirectBilling = DirectBilling()
 
-val sign: String = directBilling.sign(123, "status", "valuenet", "valuepartner", "control")
+val sign: String = directBilling.sign(123, "status", "valuenet", "value_partner", "control")
 ```
