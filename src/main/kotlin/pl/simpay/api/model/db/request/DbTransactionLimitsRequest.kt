@@ -1,4 +1,6 @@
 package model.db.request
 
-data class DbTransactionLimitsRequest(var key: String, var secret: String, var service_id: String){
+data class DbTransactionLimitsRequest(var service_id :String) {
+    lateinit var key: String
+    lateinit var secret: String
 }

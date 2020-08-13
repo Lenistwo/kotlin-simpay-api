@@ -1,5 +1,7 @@
 package model.db.request
 
-data class DbServiceCommissionRequest(var key: String, var secret: String, var service_id: String){
+data class DbServiceCommissionRequest(var service_id: String) {
+    lateinit var key: String
+    lateinit var secret: String
 }
 

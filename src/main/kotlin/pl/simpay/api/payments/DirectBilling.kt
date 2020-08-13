@@ -21,18 +21,23 @@ private const val COMMA = ","
 private const val DOT = "."
 
 
-class DirectBilling(val apiKey: String) {
+class DirectBilling() {
 
     // https://docs.simpay.pl/#generowanie-transakcji
-    fun generateTransaction(request: DbGenerateRequest): ApiResponse<DbGenerateResponse> {
+    fun generateTransaction(apiKey: String, request: DbGenerateRequest): DbGenerateResponse {
+        val amount = request.amount ?: request.amount_gross ?: request.amount_required!!
+
         val builder = FormBody.Builder()
+
         request.sign =
-                (request.serviceId + request.amount.toDouble().formatTwoDigitAfterComma().replace(COMMA,
+                (request.serviceId + amount.toDouble().formatTwoDigitAfterComma().replace(COMMA,
                                                                                                   DOT) + request.control + apiKey).toSha256()
         for (map in request.serialize()) {
+            println(map)
             builder.add(map.key, map.value)
         }
-        return sendPost(API_URL, builder.build(), ApiResponse())
+
+        return sendFormPost(API_URL, builder.build(), DbGenerateResponse())
     }
 
     // https://docs.simpay.pl/#pobieranie-danych-o-transakcji
@@ -41,12 +46,12 @@ class DirectBilling(val apiKey: String) {
     }
 
     fun getServices(request: DbServicesListRequest): ApiResponse<DbServicesListRequest> {
-        return sendPost(SERVICES_LIST_URL, request, ApiResponse())
+        return sendPost(SERVICES_LIST_URL, ParametrizedRequest(request), ApiResponse())
     }
 
     // https://docs.simpay.pl/#pobieranie-maksymalnych-kwot-transakcji
     fun getTransactionLimits(request: DbTransactionLimitsRequest): ApiResponse<List<DbTransactionLimit>> {
-        return sendPost(TRANSACTION_LIMITS_URL, request, ApiResponse())
+        return sendPost(TRANSACTION_LIMITS_URL, ParametrizedRequest(request), ApiResponse())
     }
 
     // https://docs.simpay.pl/#lista-ip-serwerow-simpay
@@ -61,7 +66,7 @@ class DirectBilling(val apiKey: String) {
     }
 
     // https://docs.simpay.pl/#odbieranie-transakcji
-    fun sign(id: Int, status: String, valuenet: String, valuepartner: String, control: String): String {
+    fun sign(id: Int, status: String, valuenet: String, valuepartner: String, control: String, apiKey: String): String {
         return (id.toString() + status + valuenet + valuepartner + control + apiKey).toSha256()
     }
 }

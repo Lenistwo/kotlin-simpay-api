@@ -1,3 +1,5 @@
+@file:Suppress("NO_REFLECTION_IN_CLASS_PATH")
+
 package utils
 
 import com.google.common.hash.Hashing
@@ -19,10 +21,20 @@ internal fun Double.formatTwoDigitAfterComma(): String {
 
 internal fun Any.serialize(): HashMap<String, String> {
     val map = HashMap<String, String>()
-    for (field in this.javaClass.fields) {
-        field.isAccessible = true
-        val value = field.get(this) ?: continue
-        map[field.name] = value.toString()
+
+    for (member in this::class.members) {
+        if (member.javaClass.name.contains("Function"))
+            continue
+
+        try {
+            val call = member.call(this)
+
+            if (call === null) continue;
+
+            map.set(member.name, call.toString())
+        } catch (ignored: Exception) {}
+
     }
+
     return map
 }
