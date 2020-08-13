@@ -1,5 +1,6 @@
 package payments
 
+import com.google.gson.reflect.TypeToken
 import model.db.DbCommission
 import model.db.DbTransaction
 import model.db.DbTransactionLimit
@@ -21,7 +22,7 @@ private const val COMMA = ","
 private const val DOT = "."
 
 
-class DirectBilling() {
+class DirectBilling {
 
     // https://docs.simpay.pl/#generowanie-transakcji
     fun generateTransaction(apiKey: String, request: DbGenerateRequest): DbGenerateResponse {
@@ -56,8 +57,8 @@ class DirectBilling() {
 
     // https://docs.simpay.pl/#lista-ip-serwerow-simpay
     fun getServersIp(): List<String> {
-        val response: ApiResponse<IPResponse> = sendGet(GET_IP_URL, ApiResponse<IPResponse>())
-        return response.respond!!.ips;
+        val response: ApiResponse<IPResponse> = sendGet(GET_IP_URL, object : TypeToken<ApiResponse<IPResponse>>() {}.type)
+        return response.respond!!.ips
     }
 
     // https://docs.simpay.pl/#pobieranie-prowizji-dla-uslugi

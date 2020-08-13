@@ -14,7 +14,7 @@ class Sms {
 
     // https://docs.simpay.pl/#weryfikacja-kodu
     fun verifyCode(request: CodeVerifyRequest): ApiResponse<CodeVerifyResponse> {
-        return sendPost(VERIFY_CODE_URL, request, ApiResponse());
+        return sendPost(VERIFY_CODE_URL, request, ApiResponse())
     }
 
     // https://docs.simpay.pl/#pobieranie-listy-uslug

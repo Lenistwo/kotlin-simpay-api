@@ -29,9 +29,9 @@ internal fun Any.serialize(): HashMap<String, String> {
         try {
             val call = member.call(this)
 
-            if (call === null) continue;
+            if (call === null) continue
 
-            map.set(member.name, call.toString())
+            map[member.name] = call.toString()
         } catch (ignored: Exception) {}
 
     }

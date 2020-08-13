@@ -1,5 +1,6 @@
 package payments
 
+import model.generic.ApiResponse
 import model.generic.IPResponse
 import utils.normalizeToNFKD
 import utils.sendGet
@@ -16,7 +17,7 @@ private const val SEND_NUMBER = "send_number"
 private const val SEND_TIME = "send_time"
 private const val ZERO = 0
 
-class SmsXml(val apiKey: String) {
+class SmsXml(private val apiKey: String) {
     private var codes: MutableMap<String, Double> = mutableMapOf()
     private val params = arrayOf("send_number", "sms_text", "sms_from", "sms_id", "sign")
 
@@ -53,7 +54,7 @@ class SmsXml(val apiKey: String) {
 
     // https://docs.simpay.pl/#odbieranie-informacji-o-sms
     fun generateCode(): String {
-        var length = 6;
+        val length = 6
 
         val builder = StringBuilder()
 
@@ -70,12 +71,12 @@ class SmsXml(val apiKey: String) {
 
     // https://docs.simpay.pl/#odbieranie-informacji-o-sms
     fun generateXml(text: String): String {
-        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?><sms-response>${text.normalizeToNFKD()}<sms-text></sms-text></sms-response>";
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?><sms-response>${text.normalizeToNFKD()}<sms-text></sms-text></sms-response>"
     }
 
-    fun getServersIp(ip: String): Boolean {
-        val ipResponse = sendGet<IPResponse>(GET_IP_URL, IPResponse())
-        return ipResponse.ips.contains(ip)
+    fun getServersIp(ip: String): List<String> {
+        val ipResponse :ApiResponse<IPResponse> = sendGet(GET_IP_URL, ApiResponse<IPResponse>())
+        return ipResponse.respond!!.ips
     }
 
     private fun sign(map: Map<String, Any>): String {

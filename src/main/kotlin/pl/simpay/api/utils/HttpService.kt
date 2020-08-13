@@ -2,12 +2,14 @@ package utils
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
 import exception.ApiException
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import java.lang.reflect.Type
 
 private const val CONTENT_TYPE_VALUE = "application/json"
 private const val HTTP_OK_CODE = 200
@@ -61,5 +63,9 @@ internal fun sendGet(url: String): String {
 }
 
 internal fun <T> sendGet(url: String, result: Any): T {
-    return gson().fromJson(sendGet(url), result.javaClass.genericSuperclass)
+    return gson().fromJson(sendGet(url), object : TypeToken<T>() {}.type)
+}
+
+internal fun <T> sendGet(url: String, type: Type): T {
+    return gson().fromJson(sendGet(url), type)
 }
