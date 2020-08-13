@@ -11,10 +11,10 @@ object DirectBillingTest {
 
     @JvmStatic
     fun main(args: Array<String>) {
-        // generateTransaction()
-        // transactionLimits()
-        // serviceCommission()
-        // serversIp()
+        generateTransaction()
+        transactionLimits()
+        serviceCommission()
+        serversIp()
         services()
     }
 
@@ -61,6 +61,6 @@ object DirectBillingTest {
         request.control = "XXXXXXX"
         request.amount = "12.50"
 
-        println(db.generateTransaction("XXXXXXXXXXXXXXXX", request))
+        println(db.generateTransaction(API_KEY, request))
     }
 }

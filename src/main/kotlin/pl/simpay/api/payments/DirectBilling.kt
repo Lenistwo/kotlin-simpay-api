@@ -6,6 +6,7 @@ import model.db.DbTransaction
 import model.db.DbTransactionLimit
 import model.db.request.*
 import model.db.response.DbGenerateResponse
+import model.db.response.DbServicesListResponse
 import model.generic.ApiResponse
 import model.generic.IPResponse
 import model.generic.ParametrizedRequest
@@ -46,7 +47,7 @@ class DirectBilling {
         return sendPost(TRANSACTION_STATUS_URL, ParametrizedRequest(request), ApiResponse())
     }
 
-    fun getServices(request: DbServicesListRequest): ApiResponse<DbServicesListRequest> {
+    fun getServices(request: DbServicesListRequest): ApiResponse<DbServicesListResponse> {
         return sendPost(SERVICES_LIST_URL, ParametrizedRequest(request), ApiResponse())
     }
 
